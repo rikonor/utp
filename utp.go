@@ -12,6 +12,7 @@
 package utp
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"net"
@@ -159,6 +160,12 @@ type recv struct {
 // Attempt to connect to a remote uTP listener, creating a Socket just for
 // this connection.
 func Dial(addr string) (net.Conn, error) {
+	return DialTimeout(addr, 0)
+}
+
+// DialContext acts similarly to Dial but takes in a context as well
+func DialContext(ctx context.Context, addr string) (net.Conn, error) {
+	// NOTE(or): The context is currently discarded
 	return DialTimeout(addr, 0)
 }
 
